@@ -9,5 +9,36 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  fullname  String   
+  email     String   @unique
+  password  String
+  role      String   @default("staff")
+  createAt  DateTime   @default(now()) @map("create_at")
+  updatedAt DateTime   @updatedAt @map("updatedAt")
+
+
+  @@map("users")
+}
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("categories")
+}
+
+model Jurusan {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("jurusan")
 }
